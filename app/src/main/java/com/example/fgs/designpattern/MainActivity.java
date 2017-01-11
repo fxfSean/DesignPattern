@@ -9,6 +9,17 @@ import com.example.fgs.designpattern.Adapter.ServerOne;
 import com.example.fgs.designpattern.Adapter.SeverThree;
 import com.example.fgs.designpattern.Adapter.SeverTwo;
 import com.example.fgs.designpattern.Adapter.XMLBuilder;
+import com.example.fgs.designpattern.Decorator.Equipment.ArmEquip;
+import com.example.fgs.designpattern.Decorator.Equipment.ShoeEquip;
+import com.example.fgs.designpattern.Decorator.Gam.BlueGemDecorator;
+import com.example.fgs.designpattern.Decorator.Gam.RedGemDecorator;
+import com.example.fgs.designpattern.Decorator.Gam.YellowGemDecorator;
+import com.example.fgs.designpattern.Decorator.XEquip;
+import com.example.fgs.designpattern.Factory.RouJiaMo;
+import com.example.fgs.designpattern.Factory.RouJiaMoFactoryStore;
+import com.example.fgs.designpattern.Factory.RoujiaMoStore;
+import com.example.fgs.designpattern.Factory.SimpleRouJiaMoFactroy;
+import com.example.fgs.designpattern.Factory.XianRouJiaMoStore;
 import com.example.fgs.designpattern.Observer.Observer1;
 import com.example.fgs.designpattern.Observer.SubjectFor3d;
 import com.example.fgs.designpattern.Observer.SubjectForSSQ;
@@ -18,7 +29,8 @@ import com.example.fgs.designpattern.Strategy.Strategy2;
 import com.example.fgs.designpattern.Strategy.StrategyToastUtil;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnSingleton,btnStrategy1,btnStrategy2,btnAdapter,btnObserver;
+    Button btnSingleton,btnStrategy1,btnStrategy2,btnAdapter,btnObserver,btnDecorator,
+            btnFactory;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -70,6 +82,44 @@ public class MainActivity extends AppCompatActivity {
                 observer1.registerSubject(subjectForSSQ);
                 subjectFor3d.setMsg("hello SubjectFor3d's msg comming");
                 subjectForSSQ.setMsg("hi SubjectforSSQ's msg here are");
+            }
+        });
+
+        btnDecorator = (Button)findViewById(R.id.btn_decorator);
+        btnDecorator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 一个镶嵌2颗红宝石，1颗蓝宝石的靴子
+                System.out.println(" 一个镶嵌2颗红宝石，1颗蓝宝石的靴子");
+                XEquip equip = new RedGemDecorator(new RedGemDecorator(new BlueGemDecorator(new ShoeEquip())));
+                System.out.println("攻击力  : " + equip.caculateAttack());
+                System.out.println("描述 :" + equip.description());
+                System.out.println("-------");
+                // 一个镶嵌1颗红宝石，1颗蓝宝石的武器
+                System.out.println(" 一个镶嵌1颗红宝石，1颗蓝宝石,1颗黄宝石的武器");
+                equip = new RedGemDecorator(new BlueGemDecorator(new YellowGemDecorator(new ArmEquip())));
+                System.out.println("攻击力  : " + equip.caculateAttack());
+                System.out.println("描述 :" + equip.description());
+                System.out.println("-------");
+            }
+        });
+
+        btnFactory = (Button)findViewById(R.id.btn_factory);
+        btnFactory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //正常逻辑
+                RoujiaMoStore store = new RoujiaMoStore();
+                store.sellRouJiaMo("Suan");
+                //简单工厂
+                SimpleRouJiaMoFactroy factroy = new SimpleRouJiaMoFactroy();
+                RouJiaMoFactoryStore factoryStore = new RouJiaMoFactoryStore(factroy);
+                factoryStore.sellRouJiaMo("La");
+
+                //抽象工厂
+                RoujiaMoStore roujiaMoStore = new XianRouJiaMoStore();
+                RouJiaMo suanRoujiaMo = roujiaMoStore.sellRouJiaMo("Suan");
+                System.out.println(suanRoujiaMo.name);
             }
         });
     }
