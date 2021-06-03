@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DesignPattern.iml" filepath="$PROJECT_DIR$/DesignPattern.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ASGitHub-DesignPattern.iml" filepath="$PROJECT_DIR$/.idea/modules/ASGitHub-DesignPattern.iml" group="DesignPattern" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/DesignPattern-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/DesignPattern-app.iml" group="DesignPattern/app" />
     </modules>
   </component>
 </project>
